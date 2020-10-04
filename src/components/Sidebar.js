@@ -7,7 +7,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 
 import { Box } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle,faPowerOff } from "@fortawesome/free-solid-svg-icons";
 
 import routes from "../routes/index";
 import avatar from "../assets/img/avatars/avatar.jpg";
@@ -166,7 +166,7 @@ class Sidebar extends React.Component {
               })}
             </ul>
 
-            {/* {!layout.isBoxed && !sidebar.isSticky ? (
+            {!layout.isBoxed && !sidebar.isSticky ? (
               <div className="sidebar-bottom d-none d-lg-block">
                 <div className="media">
                   <img
@@ -180,7 +180,7 @@ class Sidebar extends React.Component {
                     <h5 className="mb-1">Chris Wood</h5>
                     <div>
                       <FontAwesomeIcon
-                        icon={faCircle}
+                        icon={faPowerOff}
                         className="text-success"
                       />{" "}
                       Online
@@ -188,7 +188,9 @@ class Sidebar extends React.Component {
                   </div>
                 </div>
               </div>
-            ) : null} */}
+            ) : null}
+
+            
           </PerfectScrollbar>
         </div>
       </nav>

@@ -40,6 +40,9 @@ import avatar3 from "../assets/img/avatars/avatar-3.jpg";
 import avatar4 from "../assets/img/avatars/avatar-4.jpg";
 import avatar5 from "../assets/img/avatars/avatar-5.jpg";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { toastr } from 'react-redux-toastr'
 const notifications = [
   {
     type: "important",
@@ -102,24 +105,24 @@ const NavbarDropdown = ({
   footer,
   icon: Icon
 }) => (
-  <UncontrolledDropdown nav inNavbar className="mr-2">
-    <DropdownToggle nav className="nav-icon dropdown-toggle">
-      <div className="position-relative">
-        <Icon className="align-middle" size={18} />
-        {showBadge ? <span className="indicator">{count}</span> : null}
-      </div>
-    </DropdownToggle>
-    <DropdownMenu right className="dropdown-menu-lg py-0">
-      <div className="dropdown-menu-header position-relative">
-        {count} {header}
-      </div>
-      <ListGroup>{children}</ListGroup>
-      <DropdownItem header className="dropdown-menu-footer">
-        <span className="text-muted">{footer}</span>
-      </DropdownItem>
-    </DropdownMenu>
-  </UncontrolledDropdown>
-);
+    <UncontrolledDropdown nav inNavbar className="mr-2">
+      <DropdownToggle nav className="nav-icon dropdown-toggle">
+        <div className="position-relative">
+          <Icon className="align-middle" size={18} />
+          {showBadge ? <span className="indicator">{count}</span> : null}
+        </div>
+      </DropdownToggle>
+      <DropdownMenu right className="dropdown-menu-lg py-0">
+        <div className="dropdown-menu-header position-relative">
+          {count} {header}
+        </div>
+        <ListGroup>{children}</ListGroup>
+        <DropdownItem header className="dropdown-menu-footer">
+          <span className="text-muted">{footer}</span>
+        </DropdownItem>
+      </DropdownMenu>
+    </UncontrolledDropdown>
+  );
 
 const NavbarDropdownItem = ({ icon, title, description, time, spacing }) => (
   <ListGroupItem>
@@ -135,6 +138,14 @@ const NavbarDropdownItem = ({ icon, title, description, time, spacing }) => (
 );
 
 const NavbarComponent = ({ dispatch }) => {
+
+  const toastrConfirmOptions = {
+    onOk: () => {
+      localStorage.removeItem("token");
+      window.location.replace('/auth/sign-in')
+    },
+    onCancel: () => console.log('CANCEL: clicked')
+  };
   return (
     <Navbar color="white" light expand>
       <span
@@ -145,6 +156,21 @@ const NavbarComponent = ({ dispatch }) => {
       >
         <i className="hamburger align-self-center" />
       </span>
+      <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "flex-end", flex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => {
+
+          toastr.confirm('Bạn thật sự muốn đăng xuất ', toastrConfirmOptions);
+
+        }}>
+          <FontAwesomeIcon
+            icon={faPowerOff}
+            style={{ color: "red" }}
+            size={"lg"}
+          />
+          <span style={{ marginLeft: 5, color: "red" }}>Đăng xuất  </span>
+        </div>
+      </div>
+
 
       {/* <Form inline>
         <Input
