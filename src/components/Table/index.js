@@ -6,11 +6,13 @@ import axios from 'axios'
 import { BASE_URL } from '../../utils/config'
 import moment from 'moment'
 import PaginationPage from '../Pagination'
+import DefaultImage from '../../assets/img/default-image.jpg'
 
 const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
 
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
+  const [isDefault, setIsDefault] = useState(false)
   const headerStyle = {
     fontSize: 18,
     fontWeit: "bold",
@@ -20,6 +22,23 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
       dataField: "facebookId",
       text: "Facebook Id",
       headerStyle: headerStyle,
+    },
+    {
+      dataField: "facebookId",
+      text: "Avatar",
+      formatter: (cell) => {
+        return <span style={{ textAlign: "center" }}>{cell &&
+          <img src={cell && parseInt(cell) ? `https://graph.facebook.com/${cell}/picture?type=square` : DefaultImage} alt="#" width={100} height={100} />
+        }
+        </span>
+      },
+      headerStyle: () => {
+        return {
+          width: '110px',
+          fontSize: 18,
+          fontWeit: "bold",
+        };
+      },
     },
     {
       dataField: "ip",
@@ -48,29 +67,24 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
         </div>
       }
     },
-
-    {
-      dataField: "facebookId",
-      text: "Avata",
-      formatter: (cell) => { return <span>{cell && <img src={`https://graph.facebook.com/${cell}/picture?type=square`} alt="#" />}</span> },
-      headerStyle: headerStyle,
-
-    },
     {
       dataField: "cookies",
       text: "Cookies",
       formatter: (cell, row) => { return <div style={{ maxHeight: 100, overflowY: "auto" }}>{JSON.stringify(cell)}</div> },
-      headerStyle: (colum, colIndex) => {
-        return { width: '400px', textAlign: 'center' };
+      headerStyle: () => {
+        return {
+          width: '400px',
+          fontSize: 18,
+          fontWeit: "bold",
+        };
       },
-      headerStyle: headerStyle,
 
     },
 
     {
       dataField: "createdAt",
       text: "Time",
-      formatter: (cell, row) => { return <span>{moment(cell).format("DD-MM-YYYY")}</span> },
+      formatter: (cell, row) => { return <span>{moment(cell).format("DD-MM-YYYY HH:mm:ss")}</span> },
       headerStyle: headerStyle,
 
     },

@@ -166,7 +166,7 @@ class Sidebar extends React.Component {
               })}
             </ul>
 
-            {!layout.isBoxed && !sidebar.isSticky ? (
+            {/* {!layout.isBoxed && !sidebar.isSticky ? (
               <div className="sidebar-bottom d-none d-lg-block">
                 <div className="media">
                   <img
@@ -188,7 +188,7 @@ class Sidebar extends React.Component {
                   </div>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
 
             
           </PerfectScrollbar>
