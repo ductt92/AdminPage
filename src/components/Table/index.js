@@ -6,7 +6,7 @@ import axios from 'axios'
 import { BASE_URL } from '../../utils/config'
 import moment from 'moment'
 import PaginationPage from '../Pagination'
-import DefaultImage from '../../assets/img/default-image.jpg'
+import DefaultImage from '../../assets/img/user.png'
 
 const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
 
@@ -27,7 +27,7 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
       dataField: "facebookId",
       text: "Avatar",
       formatter: (cell) => {
-        return <span style={{ textAlign: "center" }}>{cell &&
+        return <span >{cell &&
           <img src={cell && parseInt(cell) ? `https://graph.facebook.com/${cell}/picture?type=square` : DefaultImage} alt="#" width={100} height={100} />
         }
         </span>
