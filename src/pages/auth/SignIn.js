@@ -33,7 +33,8 @@ const SignIn = () => {
     axios.post(`${BASE_URL}/login`, dataConfig)
       .then(res => {
         res.data && toastr.success("Thông báo", "Đăng nhập thành công")
-        localStorage.setItem("token",res.data?.data?.accessToken)
+        console.log(res, "s")
+        localStorage.setItem("token", res.data?.data?.accessToken)
         window.location.replace('/')
       })
       .catch(err => toastr.error("Cảnh báo", "Đăng nhập không hợp lệ vui lòng thử lại"))

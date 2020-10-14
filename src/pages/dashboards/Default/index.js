@@ -25,17 +25,8 @@ import Table from '../../../components/Table'
 
 
 const Default = () => {
-  const isLogin = localStorage.getItem("token")
   const [page, setPage] = useState(0)
   const [perPage, setPerPage] = useState({ value: 10, label: 10 })
-
-  useEffect(() => {
-    console.log(isLogin, "sda")
-    if (!isLogin) {
-      window.location.replace('/auth/sign-in')
-    }
-    return
-  }, [])
   return (
     <Container fluid className="p-0">
       <Row>

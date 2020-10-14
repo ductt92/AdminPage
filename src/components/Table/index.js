@@ -102,7 +102,7 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
         setData(res.data.data.data)
         setTotal(res.data.data.total)
       })
-      .catch(err => console.log(err))
+      .catch(err => localStorage.removeItem("token"))
   }, [])
   useEffect(() => {
     const config = {
@@ -112,9 +112,8 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
       // .then(res => setData(() => res.data.data))
       .then(res => {
         setData(res.data.data.data)
-
       })
-      .catch(err => console.log(err))
+      .catch(err => localStorage.removeItem("token"))
   }, [page, perPage])
 
 

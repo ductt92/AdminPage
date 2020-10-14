@@ -1,69 +1,60 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import {
-  landing as landingRoutes,
-  dashboard as dashboardRoutes,
-  page as pageRoutes
-} from "./index";
-
+import React from 'react'
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter, Switch } from 'react-router-dom'
 import DashboardLayout from "../layouts/Dashboard";
-import LandingLayout from "../layouts/Landing";
 import AuthLayout from "../layouts/Auth";
 import Page404 from "../pages/auth/Page404";
+import Dashboard from '../pages/dashboards/Default'
+import SignIn from "../pages/auth/SignIn";
 
-import ScrollToTop from "../components/ScrollToTop";
 
-
-
-const childRoutes = (Layout, routes) =>
-  routes.map(({ children, path, component: Component }, index) =>
-    children ? (
-      // Route item with children
-      children.map(({ path, component: Component }, index) => (
-        <Route
-          key={index}
-          path={path}
-          exact
-          render={props => (
-            <Layout>
-              <Component {...props} />
-            </Layout>
-          )}
-        />
-      ))
-    ) : (
-        // Route item without children
-        <Route
-          key={index}
-          path={path}
-          exact
-          render={props => (
-            <Layout>
-              <Component {...props} />
-            </Layout>
-          )}
-        />
-      )
-  );
-
-const Routes = () => {
+const HomePage = () => {
   return (
-    <Router>
-      <ScrollToTop>
-        <Switch>
-          {childRoutes(DashboardLayout, landingRoutes)}
-          {childRoutes(DashboardLayout, dashboardRoutes)}
-          {childRoutes(AuthLayout, pageRoutes)}
-          <Route render={() => (
-            <AuthLayout>
-              <Page404 />
-            </AuthLayout>
-          )}
-          />
-        </Switch>
-      </ScrollToTop>
-    </Router >
+    <DashboardLayout>
+      <Dashboard />
+    </DashboardLayout>
   )
 }
 
-export default Routes;
+const LoginPage = () => {
+  return (
+    <AuthLayout>
+      <SignIn />
+    </AuthLayout>
+  )
+}
+const ErorrPage = () => {
+  return (
+    <AuthLayout>
+      <Page404 />
+    </AuthLayout>
+  )
+}
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  console.log("1231321")
+  return (
+    <Route {...rest} render={(props) => (
+      // checkAuthencation.isAuthenticated === true
+      localStorage.getItem("token")
+        ? <Component {...props} />
+        : <Redirect to='/auth/sign-in' />
+    )} />
+
+  )
+}
+
+
+
+export default function AuthExample() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/auth/sign-in" component={LoginPage} />
+        <PrivateRoute path='/' exact component={HomePage} />
+        <PrivateRoute path='/dashboard' exact component={HomePage} />
+        <Route path="*" component={ErorrPage} />
+      </Switch>
+
+    </Router>
+  )
+}
