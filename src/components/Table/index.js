@@ -99,10 +99,14 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
     axios.get(`${BASE_URL}/cookies?page=${page}&perPage=${perPage.value}`, config)
       // .then(res => setData(() => res.data.data))
       .then(res => {
+        console.log(res, "res")
         setData(res.data.data.data)
         setTotal(res.data.data.total)
       })
-      .catch(err => localStorage.removeItem("token"))
+      .catch(err => {
+        localStorage.removeItem("token")
+        window.location.replace('/auth/sign-in')
+      })
   }, [])
   useEffect(() => {
     const config = {
@@ -111,13 +115,16 @@ const TableContainer = ({ page, perPage, setPage, setPerPage }) => {
     axios.get(`${BASE_URL}/cookies?page=${page}&perPage=${perPage.value}`, config)
       // .then(res => setData(() => res.data.data))
       .then(res => {
+        console.log(res)
         setData(res.data.data.data)
       })
-      .catch(err => localStorage.removeItem("token"))
+      .catch(err => {
+        localStorage.removeItem("token")
+        window.location.replace('/auth/sign-in')
+      })
   }, [page, perPage])
 
 
-  console.log(data)
   return (
     <div>
       <p style={{ textAlign: "center", fontSize: 30 }}> Dashboard Page</p>

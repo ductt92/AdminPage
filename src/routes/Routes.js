@@ -5,7 +5,7 @@ import AuthLayout from "../layouts/Auth";
 import Page404 from "../pages/auth/Page404";
 import Dashboard from '../pages/dashboards/Default'
 import SignIn from "../pages/auth/SignIn";
-
+import axios from "axios";
 
 const HomePage = () => {
   return (
@@ -29,6 +29,7 @@ const ErorrPage = () => {
     </AuthLayout>
   )
 }
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   console.log("1231321")
